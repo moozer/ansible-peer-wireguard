@@ -15,3 +15,9 @@ wireguard_port: 51820
 wireguard_peers:
 
 wg_peers: []
+wg_local:
+  name: "{{inventory_hostname}}"
+  priv_key:
+  pub_key:
+  port: "{{ wireguard_port }}"
+  address: "{{ ansible_default_ipv4}}"  

@@ -1,0 +1,10 @@
+wg_local:
+  name: "{{inventory_hostname}}"
+  priv_key:
+  pub_key:
+  port: "{{ wireguard_port }}"
+  address: "{{ ansible_default_ipv4.address}}"
+  server_mode: true
+
+wg_peers:
+  - "peerA"
