@@ -1,0 +1,3 @@
+# control switches
+wireguard_install_wireguard: true
+wireguard_apt_manage: true

@@ -1,6 +1,7 @@
 # a do-nothing script to put stuff into
 
 - hosts: all
+  become: true
 
   roles:
     - peer-wireguard

@@ -1,0 +1,14 @@
+
+- name: pin unstable to lowest priority
+  template:
+    src: limit-unstable.j2
+    dest:  /etc/apt/preferences.d/limit-unstable
+
+- name: add unstable to apt repos
+  apt_repository:
+    repo: "deb http://deb.debian.org/debian/ {{ item }}"
+    state: present
+    update_cache: true
+  with_items:
+    - unstable
+    - main
