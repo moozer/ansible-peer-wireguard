@@ -6,9 +6,6 @@
 
 - name: add unstable to apt repos
   apt_repository:
-    repo: "deb http://deb.debian.org/debian/ {{ item }}"
+    repo: "deb http://deb.debian.org/debian unstable main"
     state: present
     update_cache: true
-  with_items:
-    - unstable
-    - main
