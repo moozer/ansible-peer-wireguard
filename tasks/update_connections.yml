@@ -6,7 +6,7 @@
   shell: "wg genkey > {{wireguard_priv_key_file}}"
   when: not stat_privkey.stat.exists
 
-- name: get privatekey
+- name: get private key
   command: "cat {{wireguard_priv_key_file}}"
   changed_when: false
   register: priv_key
@@ -30,7 +30,7 @@
       priv_key: "{{priv_key.stdout_lines[0]}}"
       pub_key: "{{pub_key.stdout_lines[0]}}"
 
-- name: store priv keys
+- name: store priv in wg params
   set_fact:
     wg_local: "{{ wg_local | combine( wg_keys )}}"
 
