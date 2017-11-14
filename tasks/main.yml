@@ -14,3 +14,11 @@
   tags:
     - wireguard
     - update_wireguard
+
+- name: start wg services
+  service: state=started name="wg-quick@wg-{{ item }}"
+  with_items: "{{wg_peers}}"
+  when: wireguard_start_connection
+  tags:
+    - wireguard
+    - start_wireguard

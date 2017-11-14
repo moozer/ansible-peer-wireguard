@@ -1,7 +1,7 @@
 # control switches
 wireguard_install_wireguard: true
 wireguard_apt_manage: true
-
+wireguard_start_connection: true
 
 # runtime variables
 wireguard_config_dir: /etc/wireguard
@@ -20,4 +20,4 @@ wg_local:
   priv_key:
   pub_key:
   port: "{{ wireguard_port }}"
-  address: "{{ ansible_default_ipv4}}"  
+  address: "{{ ansible_default_ipv4}}"

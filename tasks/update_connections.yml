@@ -36,24 +36,14 @@
   set_fact:
     wg_local: "{{ wg_local | combine( wg_keys )}}"
 
-# - name: store pub keys
-#   set_fact:
-#     wg_local: "{{combine( wg_local, wg_local['pub_key']: pub_key.stdout_lines[0] )}}"
-
-#      pub_key: "{{pub_key.stdout_lines[0]}}"
-
-#- debug: var=wg_local
-
-
-- debug: var=wg_peer
-  vars:
-    wg_peer: "{{hostvars[item]['wg_local']}}"
-  with_items: "{{wg_peers}}"
-
 - name: add wg configs
   template:
     src: wg.conf.j2
     dest: "{{wireguard_config_dir}}/wg-{{ item }}.conf"
   vars:
     wg_peer: "{{hostvars[item]['wg_local']}}"
+  with_items: "{{wg_peers}}"
+
+- name: enable wg service
+  service: state=enabled name="wg-quick@wg-{{ item }}"
   with_items: "{{wg_peers}}"
