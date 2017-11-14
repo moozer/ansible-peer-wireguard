@@ -1,0 +1,9 @@
+# a do-nothing script to put stuff into
+
+- hosts: all
+
+  roles:
+    - peer-wireguard
+
+  tasks:
+    - debug: msg="hello world"

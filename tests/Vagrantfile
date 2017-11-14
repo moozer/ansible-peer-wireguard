@@ -1,0 +1,45 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "debian/stretch64"
+  #config.vm.network.management_network_name = "vagrant-beast"
+  # config.vm.network :private_network,
+  #   :ip => "192.168.122.5",
+  #   :libvirt__forward_mode => "none",
+  #   :libvirt__network_name => "vagrant-beast",
+  #   :auto_config => true,
+  #   :libvirt__dhcp_enabled => true
+
+  # config.vm.provider :libvirt do |libvirt|
+  #   libvirt.uri = "qemu+ssh://beast/system"
+  #   libvirt.nested = true
+  #   libvirt.management_network_name = "vagrant-beast"
+  #   libvirt.management_network_address = "192.168.122.0/24"
+  #   #libvirt.connect_via_ssh = true
+  # end
+#
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+  peers = ["peerA", "peerB"]
+
+  # spin up servers
+  peers.each do |server_name|
+    config.vm.define server_name do |machine|
+          machine.vm.hostname = server_name
+    end
+  end
+  # run a script
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "test.yml"
+  end
+
+end
