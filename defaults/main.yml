@@ -20,4 +20,5 @@ wg_local:
   priv_key:
   pub_key:
   port: "{{ wireguard_port }}"
-  address: "{{ ansible_default_ipv4}}"
+  address:
+  server_mode: false
