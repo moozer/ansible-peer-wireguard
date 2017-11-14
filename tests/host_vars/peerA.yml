@@ -3,7 +3,7 @@ wg_local:
   priv_key:
   pub_key:
   port: "{{ wireguard_port }}"
-  address: "{{ ansible_default_ipv4.address}}"
+  address: 172.16.10.2
   server_mode: false
 
 wg_peers:
