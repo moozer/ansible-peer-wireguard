@@ -9,4 +9,8 @@ PublicKey = {{ wg_peer['pub_key'] }}
 {% if not wg_peer['server_mode'] %}
 Endpoint = {{ wg_peer['name']}}:{{ wg_peer['port'] }}
 {% endif %}
+{% if not wg_peer['networks'] is none %}
+AllowedIPs = {{wg_peer['address']}}, {{wg_peer['networks'] | join(", ")}}
+{% else %}
 AllowedIPs = {{wg_peer['address']}}
+{% endif %}

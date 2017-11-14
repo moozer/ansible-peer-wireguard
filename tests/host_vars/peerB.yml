@@ -5,6 +5,9 @@ wg_local:
   port: "{{ wireguard_port }}"
   address: 172.16.10.3
   server_mode: true
+  networks:
+    - 10.10.10.0/24
+
 
 wg_peers:
   - "peerA"
