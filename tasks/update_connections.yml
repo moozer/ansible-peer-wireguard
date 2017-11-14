@@ -9,6 +9,7 @@
 
 - name: get privatekey
   command: "cat {{wireguard_priv_key_file}}"
+  changed_when: false
   register: priv_key
 
 - name: check for public key
@@ -22,6 +23,7 @@
 
 - name: get public key
   command: "cat {{wireguard_pub_key_file}}"
+  changed_when: false
   register: pub_key
 
 - name: store priv keys
