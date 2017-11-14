@@ -2,7 +2,15 @@
 - name: add repos, if appl
   include: add_unstable_repo.yml
   when: wireguard_apt_manage
+  tags: wireguard
 
 - name: install wireguard
   include: install_wireguard.yml
   when: wireguard_install_wireguard
+  tags: wireguard
+
+- name: update/add wg connections
+  include: update_connections.yml
+  tags:
+    - wireguard
+    - update_wireguard

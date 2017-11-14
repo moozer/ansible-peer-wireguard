@@ -1,3 +1,17 @@
 # control switches
 wireguard_install_wireguard: true
 wireguard_apt_manage: true
+
+
+# runtime variables
+wireguard_config_dir: /etc/wireguard
+wireguard_priv_key_file: "{{wireguard_config_dir}}/privatekey"
+wireguard_pub_key_file: "{{wireguard_config_dir}}/publickey"
+
+wireguard_port: 51820
+
+# list of peers to connect to.
+# these must be in the inventory, ie. hostvars[peer] works
+wireguard_peers:
+
+wg_peers: []

@@ -1,0 +1,35 @@
+- name: check for private key
+  stat:
+    path: "{{wireguard_priv_key_file}}"
+  register: stat_privkey
+
+- name: generate private key, if appl
+  shell: "wg genkey > {{wireguard_priv_key_file}}"
+  when: not stat_privkey.stat.exists
+
+- name: get privatekey
+  command: "cat {{wireguard_priv_key_file}}"
+  register: priv_key
+
+- name: check for public key
+  stat:
+    path: "{{wireguard_pub_key_file}}"
+  register: stat_pubkey
+
+- name: generate public key, if appl
+  shell: "wg pubkey < {{wireguard_priv_key_file}} > {{wireguard_pub_key_file}}"
+  when: not stat_pubkey.stat.exists
+
+- name: get public key
+  command: "cat {{wireguard_pub_key_file}}"
+  register: pub_key
+
+
+- name: store keys
+  set_fact:
+    wg_keys:
+      name: "{{inventory_hostname}}"
+      priv_key: "{{priv_key.stdout_lines[0]}}"
+      pub_key: "{{pub_key.stdout_lines[0]}}"
+
+- debug: var=wg_keys
