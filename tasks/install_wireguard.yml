@@ -1,5 +1,9 @@
 # steps for actually installing wireguard
 
+- name: instal kernel headers
+  apt:
+    name: "linux-headers-{{ansible_kernel}}"
+    state: present
 
 - name: install wireguard packages
   apt:

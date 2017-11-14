@@ -3,6 +3,22 @@
 - hosts: all
   become: true
 
+  pre_tasks:
+  - name: upgrade linux kernel
+    apt: name=linux-image-amd64 state=latest
+    register: new_kernel
+
+  - name: restart machine after upgrade
+    shell: reboot
+    async: 0
+    poll: 0
+    when: new_kernel.changed
+
+  - name: waiting for server to come back
+    become: false
+    local_action: wait_for host={{ ansible_ssh_host }} state=started
+    when: new_kernel.changed
+
   roles:
     - peer-wireguard
 
