@@ -23,4 +23,11 @@
     - peer-wireguard
 
   tasks:
-    - debug: msg="hello world"
+  - debug: msg="hello world"
+
+  - name: ping peer
+    command: "ping -c 1 {{wg_peer['address']}}"
+    vars:
+      wg_peer: "{{hostvars[item]['wg_local']}}"
+    with_items: "{{wg_peers}}"
+    changed_when: false
